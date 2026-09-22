@@ -1,0 +1,372 @@
+{
+  "modelo": "StandardScaler + Regressão Logística C=1",
+  "features": [
+    "ida",
+    "ieg",
+    "ipv",
+    "fase"
+  ],
+  "classe_positiva": 1,
+  "limiar": 0.278,
+  "regra_uso": "predict_proba da classe 1 >= limiar",
+  "populacao": "Sem defasagem atual, fases 0–6; desfecho observado no ano seguinte em fases 0–7",
+  "desenvolvimento": {
+    "origem": 2022,
+    "desfecho": 2023,
+    "alunos": 186,
+    "casos": 60
+  },
+  "avaliacao_posterior": {
+    "origem": 2023,
+    "desfecho": 2024,
+    "alunos": 296,
+    "casos": 84
+  },
+  "nova_validacao_independente": false,
+  "retreinado_com_periodo_posterior": false,
+  "probabilidades_recalibradas": false,
+  "faixas_treino": {
+    "ida": {
+      "min": 2.0,
+      "max": 9.9
+    },
+    "ieg": {
+      "min": 4.6,
+      "max": 10.0
+    },
+    "ipv": {
+      "min": 5.056,
+      "max": 9.75
+    },
+    "fase": {
+      "min": 0.0,
+      "max": 6.0
+    }
+  },
+  "sha256_modelo": "0dc90a6d6c5cbef022152f9e992ef902db374adfefb9c5532d6c914a68378ef3",
+  "versoes": {
+    "python": "3.9.6",
+    "scikit_learn": "1.6.1",
+    "numpy": "1.26.4",
+    "pandas": "2.2.3",
+    "scipy": "1.13.1"
+  },
+  "hashes_dados": {
+    "base_pede.xlsx": "c5f50d68f9e065bbe404bdd2677b0c7c1465ac1a20dc3a90552f7891e7d96128",
+    "alunos_ano.csv": "d1bc5d5bbf38ae75d6afad9af88df4217c0e0207b144b8f32ff9fbe55204930a",
+    "desenvolvimento.csv": "652943f474068ce0728147f098b6ae5bc4aa93e88a209e17972b5b013a36d53e",
+    "teste_temporal.csv": "90a78fa381f82471e4a4bbbe7516029d0aa40f3f4353bcf3d1bd2dac57c3b2a9"
+  },
+  "metricas_politica_adotada_exploratorias": {
+    "n": 296,
+    "positivos": 84,
+    "tp": 44,
+    "fp": 25,
+    "fn": 40,
+    "tn": 187,
+    "alertas": 69,
+    "precisao": 0.6376811594202898,
+    "recall": 0.5238095238095238,
+    "f1": 0.5751633986928104,
+    "acuracia": 0.7804054054054054,
+    "ap": 0.6515162565255316,
+    "roc_auc": 0.813230008984726,
+    "brier": 0.16042328980215848,
+    "prob_media": 0.2097588101764007
+  },
+  "metricas_politica_anterior_exploratorias": {
+    "n": 296,
+    "positivos": 84,
+    "tp": 58,
+    "fp": 53,
+    "fn": 26,
+    "tn": 159,
+    "alertas": 111,
+    "precisao": 0.5225225225225225,
+    "recall": 0.6904761904761905,
+    "f1": 0.5948717948717949,
+    "acuracia": 0.7331081081081081,
+    "ap": 0.6515162565255316,
+    "roc_auc": 0.813230008984726,
+    "brier": 0.16042328980215848,
+    "prob_media": 0.2097588101764007
+  },
+  "metricas_politica_adotada_desenvolvimento_oof": {
+    "n": 186,
+    "positivos": 60,
+    "tp": 47,
+    "fp": 44,
+    "fn": 13,
+    "tn": 82,
+    "alertas": 91,
+    "precisao": 0.5164835164835165,
+    "recall": 0.7833333333333333,
+    "f1": 0.6225165562913907,
+    "acuracia": 0.6935483870967742,
+    "ap": 0.5882562543686977,
+    "roc_auc": 0.7748677248677249,
+    "brier": 0.1770390010371239,
+    "prob_media": 0.3220934147323288
+  },
+  "politica_alerta_adotada": {
+    "operador": ">=",
+    "corte_exato": 0.278,
+    "origem": "27,8% exato solicitado após comparação anterior; sem nova otimização em 2024.",
+    "corte_historico_arredondado": 0.2778104298913131,
+    "mesmas_classificacoes_nesta_amostra": true,
+    "justificativa": "Priorizar alertas mais assertivos: 25 falsos alertas em vez de 53; 40 casos sem alerta em vez de 26.",
+    "capacidade_associacao_confirmada": false
+  },
+  "comparacao_quatro_features": {
+    "resultados": [
+      {
+        "modelo": "Logística",
+        "ap_media": 0.6389644136419125,
+        "ap_dp": 0.08369950602487693,
+        "gap_ap": -0.0011024231814434904,
+        "ap_oof": 0.5882562543686977,
+        "roc_auc_oof": 0.7748677248677249,
+        "brier_oof": 0.1770390010371239,
+        "folds_superiores": 0,
+        "atende_criterio": false
+      },
+      {
+        "modelo": "Árvore",
+        "ap_media": 0.5218841658189485,
+        "ap_dp": 0.04429782959180399,
+        "gap_ap": 0.07413892115552267,
+        "ap_oof": 0.5068955895994541,
+        "roc_auc_oof": 0.7214285714285714,
+        "brier_oof": 0.18476050115682766,
+        "folds_superiores": 0,
+        "atende_criterio": false
+      },
+      {
+        "modelo": "Random Forest",
+        "ap_media": 0.582809508749154,
+        "ap_dp": 0.12284533433369388,
+        "gap_ap": 0.17030416387952552,
+        "ap_oof": 0.5270498877899775,
+        "roc_auc_oof": 0.7568121693121694,
+        "brier_oof": 0.18138739797518774,
+        "folds_superiores": 1,
+        "atende_criterio": false
+      }
+    ],
+    "folds": [
+      {
+        "modelo": "Logística",
+        "fold": 1,
+        "ap_treino": 0.5948180250412338,
+        "ap_validacao": 0.7784560132276852
+      },
+      {
+        "modelo": "Logística",
+        "fold": 2,
+        "ap_treino": 0.6543392852561433,
+        "ap_validacao": 0.6277085183335184
+      },
+      {
+        "modelo": "Logística",
+        "fold": 3,
+        "ap_treino": 0.6561017785978225,
+        "ap_validacao": 0.5554875611860906
+      },
+      {
+        "modelo": "Logística",
+        "fold": 4,
+        "ap_treino": 0.63833747048188,
+        "ap_validacao": 0.6012917637917639
+      },
+      {
+        "modelo": "Logística",
+        "fold": 5,
+        "ap_treino": 0.6457133929252649,
+        "ap_validacao": 0.6318782116705041
+      },
+      {
+        "modelo": "Árvore",
+        "fold": 1,
+        "ap_treino": 0.5894120647622803,
+        "ap_validacao": 0.5615942028985507
+      },
+      {
+        "modelo": "Árvore",
+        "fold": 2,
+        "ap_treino": 0.5816269021805934,
+        "ap_validacao": 0.5750342734038386
+      },
+      {
+        "modelo": "Árvore",
+        "fold": 3,
+        "ap_treino": 0.5998994386099458,
+        "ap_validacao": 0.5104761904761905
+      },
+      {
+        "modelo": "Árvore",
+        "fold": 4,
+        "ap_treino": 0.5942669172932331,
+        "ap_validacao": 0.4811580811580811
+      },
+      {
+        "modelo": "Árvore",
+        "fold": 5,
+        "ap_treino": 0.6149101120263032,
+        "ap_validacao": 0.4811580811580811
+      },
+      {
+        "modelo": "Random Forest",
+        "fold": 1,
+        "ap_treino": 0.736922328083182,
+        "ap_validacao": 0.7751932095682097
+      },
+      {
+        "modelo": "Random Forest",
+        "fold": 2,
+        "ap_treino": 0.7679600883923091,
+        "ap_validacao": 0.5368490305990307
+      },
+      {
+        "modelo": "Random Forest",
+        "fold": 3,
+        "ap_treino": 0.7520947083295723,
+        "ap_validacao": 0.46208768083768087
+      },
+      {
+        "modelo": "Random Forest",
+        "fold": 4,
+        "ap_treino": 0.7312077534078207,
+        "ap_validacao": 0.6262438457804591
+      },
+      {
+        "modelo": "Random Forest",
+        "fold": 5,
+        "ap_treino": 0.7773834849305141,
+        "ap_validacao": 0.5136737769603902
+      }
+    ],
+    "baseline_ap_media": 0.32261735419630155,
+    "alternativas_avaliadas_em_2024": false,
+    "artefato_substituido": false,
+    "decisao": "Manter Logística; nenhuma alternativa atendeu ao critério registrado.",
+    "protocolo_sha256": "841e3f059720340c26f340101333a591cef4320d24ed7df35c00ab6eee6fda92",
+    "natureza": "Reprodução da comparação anterior; 5 divisões estratificadas, shuffle=True, random_state=42.",
+    "criterio": "AP média >= Logística+0.02; superior em >=3/5 divisões; Brier <= Logística+0.01; gap AP <=0.10."
+  },
+  "coeficientes": [
+    {
+      "Indicador": "ida",
+      "Peso padronizado": -0.28402912595574775,
+      "Peso por ponto": -0.1846626577177788
+    },
+    {
+      "Indicador": "ieg",
+      "Peso padronizado": 0.38582715139560625,
+      "Peso por ponto": 0.34873261008574324
+    },
+    {
+      "Indicador": "ipv",
+      "Peso padronizado": -0.9652036536585948,
+      "Peso por ponto": -1.100683963502167
+    },
+    {
+      "Indicador": "fase",
+      "Peso padronizado": -0.7680053842623207,
+      "Peso por ponto": -0.4598257640753736
+    }
+  ],
+  "limites": [
+    "Amostra pequena e perdas de acompanhamento.",
+    "Revisão após inspeção de 2024; avaliação exploratória.",
+    "Probabilidades subestimadas.",
+    "Fase 6 pouco representada; IPV precisa estar disponível no momento da previsão.",
+    "IEG tem sinal positivo condicional, sem interpretação causal."
+  ],
+  "historico": {
+    "referencia_original_seis_features": {
+      "n": 296,
+      "positivos": 84,
+      "ap": 0.6143724882089033,
+      "roc_auc": 0.7918912848158132,
+      "brier": 0.183504847290558,
+      "recall": 0.2857142857142857,
+      "precisao": 0.7058823529411765,
+      "f1": 0.4067796610169492,
+      "acuracia": 0.7635135135135135,
+      "tp": 24,
+      "fp": 10,
+      "fn": 60,
+      "tn": 202,
+      "alertas": 34,
+      "prob_media": 0.14172098154127222
+    },
+    "corte_original": 0.3343589429006473,
+    "simplificacao": "Após observar 2024, retirar IPS e idade por comparabilidade e redundância; seleção interna com tolerâncias AP -0.03 e Brier +0.01.",
+    "comparacao_simplificacoes": [
+      {
+        "modelo": "referencia",
+        "n_features": 6,
+        "ap_media": 0.6602290839,
+        "brier": 0.1702725771,
+        "elegivel": true
+      },
+      {
+        "modelo": "sem_ips",
+        "n_features": 5,
+        "ap_media": 0.6514542038,
+        "brier": 0.1747441063,
+        "elegivel": true
+      },
+      {
+        "modelo": "sem_idade",
+        "n_features": 5,
+        "ap_media": 0.6223451376,
+        "brier": 0.1736152635,
+        "elegivel": false
+      },
+      {
+        "modelo": "sem_ips_idade",
+        "n_features": 4,
+        "ap_media": 0.6389644136,
+        "brier": 0.177039001,
+        "elegivel": true
+      }
+    ],
+    "politicas_anteriores": {
+      "35_8": {
+        "n": 296,
+        "positivos": 84,
+        "ap": 0.6515162565255316,
+        "roc_auc": 0.813230008984726,
+        "brier": 0.16042328980215848,
+        "recall": 0.36904761904761907,
+        "precisao": 0.6739130434782609,
+        "f1": 0.47692307692307695,
+        "acuracia": 0.7702702702702703,
+        "tp": 31,
+        "fp": 15,
+        "fn": 53,
+        "tn": 197,
+        "alertas": 46,
+        "prob_media": 0.2097588101764007
+      },
+      "21_7": {
+        "n": 296,
+        "positivos": 84,
+        "ap": 0.6515162565255316,
+        "roc_auc": 0.813230008984726,
+        "brier": 0.16042328980215848,
+        "recall": 0.6904761904761905,
+        "precisao": 0.5225225225225225,
+        "f1": 0.5948717948717949,
+        "acuracia": 0.7331081081081081,
+        "tp": 58,
+        "fp": 53,
+        "fn": 26,
+        "tn": 159,
+        "alertas": 111,
+        "prob_media": 0.2097588101764007
+      }
+    }
+  }
+}
