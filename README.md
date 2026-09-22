@@ -1,44 +1,98 @@
-# Passos Mágicos
+# Tech Challenge Fase 5 — Datathon Passos Mágicos
 
-Análise dos dados PEDE de 2022–2024 e previsão de novos casos de defasagem no ano seguinte. A aplicação reúne contexto, dashboard interativo, perguntas de negócio, sistema preditivo e informações do modelo.
+Projeto desenvolvido para o Tech Challenge da Fase 5 da Pós Tech em Data Analytics.
 
-## Resultados
+A solução analisa os dados educacionais da Passos Mágicos de 2022 a 2024 e utiliza Machine Learning para estimar a probabilidade de um aluno entrar em defasagem no ano seguinte. A aplicação em Streamlit reúne contexto do projeto, dashboard analítico, respostas às dez perguntas de negócio, sistema preditivo e informações sobre o modelo.
 
-- Nas fases 0–7, a defasagem caiu de 69,9% para 50,7%; o IDA médio recuou em 2024.
-- A Regressão Logística usa IDA, IEG, IPV e fase para alunos sem defasagem nas fases 0–6.
-- Corte de **27,8%**: 44 casos identificados, 25 falsos alertas e 40 casos sem alerta. Precisão de **63,8%** e recall de **52,4%**.
-- Avaliação exploratória em 296 alunos: o período posterior já havia sido examinado. As probabilidades subestimaram o risco médio. O alerta apoia a revisão pedagógica; não substitui o acompanhamento.
+## Estrutura do projeto
 
-## Executar no Mac / VS Code
-
-Compatível com **Python 3.9.6**; modelo gerado com **scikit-learn 1.6.1**. Extraia o ZIP em uma pasta nova e abra a pasta que contém `app.py`. No terminal:
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt
-python -m streamlit run app.py
+```text
+datathon-passos-magicos-fase-5/
+├── app.py
+├── requirements.txt
+├── README.md
+├── style.css
+├── test_app.py
+├── .gitignore
+├── .streamlit/
+│   └── config.toml
+├── data/
+│   ├── base_pede.xlsx
+│   ├── alunos_ano.csv
+│   ├── desenvolvimento.csv
+│   ├── teste_temporal.csv
+│   ├── dicionario.pdf
+│   ├── pontos_importantes.docx
+│   └── links_adicionais.docx
+├── models/
+│   ├── modelo_risco.pkl
+│   └── metadados_modelo.json
+├── notebooks/
+│   └── passos_magicos.ipynb
+└── outputs/
+    ├── respostas_negocio.md
+    └── graficos_negocio.json
 ```
 
-Abra http://localhost:8501. Para encerrar, use `Control+C`. Nas próximas vezes, execute somente os dois comandos de ativação e abertura da aplicação.
+A pasta `data/` reúne a base de origem (`base_pede.xlsx`), os três documentos de referência fornecidos e os três CSVs gerados pelo notebook. `alunos_ano.csv` contém somente os 14 campos utilizados no dashboard; a planilha de origem permanece completa.
 
-## Estrutura
+## Principais resultados da análise
 
-| Pasta | Conteúdo |
-|---|---|
-| `data/` | Fonte, referências e três bases preparadas |
-| `models/` | Pipeline `modelo_risco.pkl` e metadados |
-| `notebooks/` | Um notebook: preparação, dez perguntas e modelagem |
-| `outputs/` | Respostas e gráficos das dez perguntas |
+- Nas fases 0–7, a proporção de alunos com defasagem passou de **69,9% em 2022 para 50,7% em 2024**.
+- Entre os mesmos 441 alunos acompanhados nos três anos, a proporção passou de **66,0% para 37,0%**.
+- O desempenho acadêmico médio caiu em 2024, indicando a necessidade de acompanhamento mesmo com a melhora na adequação de nível.
 
-`app.py` contém a aplicação; `style.css` e `.streamlit/config.toml`, a apresentação visual. Tecnologias: pandas, scikit-learn, Matplotlib, Plotly e Streamlit.
+Essas mudanças são observadas nos dados; sem grupo de comparação, não é possível atribuí-las exclusivamente ao programa.
 
-## Reproduzir a análise
+## Modelo final
 
-Abra `notebooks/passos_magicos.ipynb` e execute em ordem. No Colab, envie o ZIP completo quando solicitado. Localmente, use as dependências acima e selecione esse ambiente no notebook. A execução gera os CSVs, o `.pkl`, os metadados e os gráficos para a aplicação. As respostas estão em `outputs/`. A aplicação já inclui esses arquivos.
+O modelo selecionado foi a **Regressão Logística**, com padronização das variáveis **IDA, IEG, IPV e fase**. Foram comparadas também Árvore de Decisão e Random Forest; a Regressão Logística apresentou a maior Average Precision média na validação interna.
 
-Testes: `python -m unittest test_app -v`.
+O desenvolvimento utilizou indicadores de **2022 e desfechos de 2023**, com 186 alunos. A avaliação temporal utilizou indicadores de **2023 e desfechos de 2024**, com 296 alunos.
 
-O pacote de trabalho contém dados individuais. `data/` está excluída do versionamento automático; a publicação dos dados ainda precisa ser definida. GitHub, deploy, apresentação e vídeo permanecem pendentes.
+Com ponto de corte de **27,8%**, os resultados na avaliação temporal foram:
 
-Fonte: PEDE 2022–2024 e documentos fornecidos para o projeto. [Passos Mágicos](https://passosmagicos.org.br/).
+- Acurácia: **78,0%**
+- Precisão dos alertas: **63,8%**
+- Recall — casos de defasagem identificados: **52,4%**
+- F1-score: **57,5%**
+- ROC AUC: **0,813**
+- Average Precision: **0,652**
+
+Foram emitidos **69 alertas: 44 casos confirmados e 25 falsos alertas**. Outros **40 casos não receberam alerta**. O corte prioriza a assertividade das revisões pedagógicas, com perda de cobertura.
+
+A avaliação é **exploratória**, pois os resultados de 2024 já haviam sido examinados antes das revisões do modelo e da escolha final do corte. Uma nova avaliação independente continua necessária.
+
+## Como executar localmente
+
+Na pasta do projeto, com o ambiente Python ativado:
+
+1. Instale as dependências:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+2. Execute a aplicação:
+
+```bash
+python -m streamlit run app.py --server.headless false
+```
+
+Para reproduzir a preparação, as análises e a modelagem, execute `notebooks/passos_magicos.ipynb` em ordem. No Colab, envie o ZIP completo quando solicitado.
+
+## Observação importante
+
+O arquivo `modelo_risco.pkl` foi salvo usando **scikit-learn==1.6.1**. Essa versão está fixada no `requirements.txt` para preservar a compatibilidade ao carregar o modelo.
+
+O projeto é compatível com **Python 3.9.6** no Mac. Para o Streamlit Community Cloud, a aplicação foi testada com **Python 3.12**, utilizando as mesmas dependências.
+
+## Limites de uso e privacidade
+
+- O modelo atende alunos **sem defasagem atual, nas fases 0–6**, com IDA, IEG e IPV conhecidos. Valores fora das faixas de treinamento recebem aviso de extrapolação.
+- As probabilidades subestimaram o risco médio observado. O resultado apoia a revisão pedagógica e não substitui o acompanhamento dos alunos.
+- Os dados digitados no sistema preditivo não são gravados pela aplicação em arquivo ou banco de dados.
+- O pacote contém dados individuais e deve permanecer em repositório privado até a definição das condições de divulgação. Nomes codificados não garantem anonimização completa.
+- Projeto acadêmico independente, sem caráter de sistema oficial da Associação Passos Mágicos.
+
+Fonte: base PEDE 2022–2024 e materiais fornecidos para o desafio. [Associação Passos Mágicos](https://passosmagicos.org.br/).
